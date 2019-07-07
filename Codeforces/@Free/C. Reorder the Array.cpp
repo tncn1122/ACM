@@ -1,0 +1,107 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define  Infile			freopen("input.txt", "r", stdin)
+#define  Outfile		freopen("output.txt", "w", stdout)
+#define  fu(i,a,b)		for(long long i=(a); i<=(b); ++i)
+#define  fd(i,a,b)		for(long long i=(a); i>=(b); --i)
+#define  fo(i,n)		for(long long i=0; i<(n); ++i)
+#define  fix_set(x)		fixed<<setprecision(x)
+#define  ms(a,x)		memset(a, x, sizeof(a))
+#define  all(x)			(x).begin(), (x).end()
+#define	 fst			first
+#define	 snd			second
+
+typedef double db;
+typedef long long ll;
+clock_t TimeBegin, TimeEnd;
+ll const INF = 1e18;
+ll const Base = 1;
+
+inline ll mod(string num, ll a);
+inline ll diMod(ll A, ll B);
+inline ll fpow(ll a,ll x);
+inline void Tstart();
+inline void Tstop();
+
+
+//declare
+ll n, arr[100005], ans = 0;
+vector <ll> x;
+//============//
+
+void Solve()
+{
+	cin >> n;
+	fo(i, n)
+		cin >> arr[i];
+	sort(arr, arr+n);
+	ll s = 0;
+	while (arr[s] == arr[0])
+		s++;
+	fu(i, s, n-1)
+		x.push_back(arr[i]);
+	fo(i, s)
+		x.push_back(arr[0]);
+	fo(i, n)
+		if (arr[i] < x[i])
+			ans++;
+	cout << ans;
+}
+
+
+//=============================================================================//
+
+int main()
+{
+	ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+	//Infile;
+	//Outfile;
+
+	Solve();
+
+	return 0;
+}
+
+//=============================================================================//
+//=============================================================================//
+
+inline ll mod(string num, ll a) 
+{ 
+    ll res = 0; 
+    fo(i, num.length()) 
+         res = (res*10 + (ll)num[i] - '0') %a;
+    return res; 
+} 
+
+inline ll fpow(ll a,ll x)
+{
+	if(x==0)return 1;	
+	if(x&1) 
+	{
+		return a*fpow(a,x-1)%Base;
+	} 
+	else
+	{
+		ll t=fpow(a,x/2);
+		return t*t%Base;
+	}
+}
+
+inline ll diMod(ll A, ll B)
+{
+	//(A/B)%Base
+	ll result = (A * fpow(B, Base-2)) % Base; 
+	return result;
+}	
+
+inline void Tstart()
+{
+	TimeBegin = clock();
+}
+
+inline void Tstop()
+{
+	TimeEnd = clock();
+	cout << "\nTime elapsed: " << 1000 * (TimeEnd - TimeBegin) / CLOCKS_PER_SEC << " ms\n";
+}
